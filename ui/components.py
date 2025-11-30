@@ -494,6 +494,18 @@ def render_query_input() -> Optional[str]:
     if 'query_input' not in st.session_state:
         st.session_state.query_input = ""
     
+    # Check if we need to clear (from previous interaction)
+    if 'clear_requested' in st.session_state and st.session_state.clear_requested:
+        if 'query_text_input' in st.session_state:
+            del st.session_state.query_text_input
+        if 'last_result' in st.session_state:
+            del st.session_state.last_result
+        if 'last_insights' in st.session_state:
+            del st.session_state.last_insights
+        if 'query_history' in st.session_state:
+            st.session_state.query_history = []
+        st.session_state.clear_requested = False
+    
     # Query input section with styling
     st.markdown("### 💬 Ask Your Question")
     
@@ -503,7 +515,8 @@ def render_query_input() -> Optional[str]:
         placeholder="e.g., Show me the top 10 customers by total revenue with their order counts...",
         height=100,
         key="query_text_input",
-        label_visibility="collapsed"
+        label_visibility="collapsed",
+        value=st.session_state.get('query_text_input', '')
     )
     
     # Buttons below the text area
@@ -514,7 +527,10 @@ def render_query_input() -> Optional[str]:
         clear = st.button("🗑️ Clear")
     
     if clear:
-        return ""  # Return empty string to clear
+        # Set flag to clear on next run
+        st.session_state.clear_requested = True
+        st.rerun()
+        return None
     
     # Quick action buttons
     st.markdown("**Quick Actions:**")
@@ -742,7 +758,7 @@ def render_results(result: dict, insights: str, visualizer, key_prefix: str = ""
                 value=result["sql_query"],
                 height=200,
                 label_visibility="collapsed",
-                key="sql_copy_area",
+                key=f"{key_prefix}sql_copy_area",
                 help="Select all text (Ctrl+A) and copy (Ctrl+C)"
             )
         with col_sql2:
