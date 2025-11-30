@@ -1,0 +1,11 @@
+product,category,price,quantity,date
+Laptop,Electronics,999.99,5,2024-01-15
+Mouse,Electronics,29.99,50,2024-01-15
+Keyboard,Electronics,79.99,30,2024-01-16
+Monitor,Electronics,299.99,10,2024-01-16
+Desk,Furniture,399.99,8,2024-01-17
+Chair,Furniture,199.99,15,2024-01-17
+Notebook,Stationery,4.99,100,2024-01-18
+Pen,Stationery,1.99,200,2024-01-18
+Backpack,Accessories,49.99,25,2024-01-19
+Water Bottle,Accessories,14.99,40,2024-01-19

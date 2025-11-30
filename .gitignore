@@ -1,0 +1,117 @@
+# Environment variables
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Database files
+data/*.db
+*.db
+*.sqlite
+*.sqlite3
+data/chroma_db/
+session_vector_stores/
+*.db-journal
+
+# Vector stores
+chroma_db/
+session_vector_stores/
+*.chromadb
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+*.bak
+*.tmp
+*~
+
+# Temporary files
+tmp/
+temp/
+*.temp
+
+# Large files and uploads
+*.csv
+*.xlsx
+*.xls
+!sample_data.csv
+data/uploads/
+
+# PDF specification (optional - uncomment if you don't want to share)
+# MYAIGURU_AI Engineers_Build Round Specs*.pdf
+
+# Streamlit
+.streamlit/secrets.toml
+
+# PyCharm
+.idea/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
