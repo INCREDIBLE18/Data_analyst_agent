@@ -1,0 +1,9 @@
+# Data Directory
+
+This directory stores runtime data:
+
+- **uploads/** - User uploaded CSV/Excel/SQLite files (auto-generated)
+- **chroma_db/** - Vector database persistence (auto-generated)
+- **sales_analytics.db** - Demo SQLite database (created by setup.py)
+
+All contents are excluded from git via `.gitignore`.

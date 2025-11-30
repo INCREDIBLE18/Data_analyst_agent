@@ -1,8 +1,15 @@
 # 🤖 SQL Data Analyst Agent
 
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.31.0+-FF4B4B.svg)](https://streamlit.io)
+[![LangChain](https://img.shields.io/badge/LangChain-0.1.0+-green.svg)](https://langchain.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 > **AI-Powered Natural Language to SQL with Multi-Database Support**
 
 A production-grade AI agent that converts natural language questions into SQL queries, executes them across multiple database types, visualizes results intelligently, and provides AI-generated insights.
+
+🔗 **[Live Demo](#) | [Documentation](./docs/ARCHITECTURE.md) | [Quick Start](./docs/QUICKSTART.md)**
 
 ## ✨ Key Features
 
@@ -16,35 +23,77 @@ A production-grade AI agent that converts natural language questions into SQL qu
 - 📥 **Export Options**: Download CSV or PDF reports
 - 🎨 **Professional UI**: Clean, gradient design with tabs
 
+## 🎯 How It Works
+
+```mermaid
+graph LR
+    A[User Question] --> B[RAG: Schema Search]
+    B --> C[LLM: Generate SQL]
+    C --> D[Execute Query]
+    D --> E{Error?}
+    E -->|Yes| F[Auto-Repair 3x]
+    F --> D
+    E -->|No| G[Smart Visualization]
+    G --> H[AI Insights]
+    H --> I[Display Results]
+```
+
+1. **Upload Database**: Drop CSV/Excel files or connect via connection string
+2. **Ask Questions**: Type in natural language (e.g., "Show top 10 customers by revenue")
+3. **AI Processing**: 
+   - RAG searches schema for relevant tables/columns
+   - Groq LLM generates optimized SQL query
+   - Auto-fixes errors if query fails (up to 3 attempts)
+4. **Visualization**: Auto-detects data patterns and creates appropriate charts
+5. **Insights**: AI analyzes results and provides business insights
+
 ## 🏗️ Architecture
 
 This project follows a clean, modular architecture designed for scalability and maintainability:
 
 ```
 Data_analyst_agent/
-├── config/              # Configuration management
-│   └── settings.py      # Environment variables and app config
-├── database/            # Database layer
-│   ├── db_setup.py      # SQLite schema and data initialization
-│   └── db_manager.py    # Database connection and query execution
-├── rag/                 # RAG (Retrieval-Augmented Generation) layer
-│   ├── schema_loader.py # Database schema extraction
-│   └── vector_store.py  # Chroma vector DB for semantic search
-├── agent/               # Agent layer
-│   ├── sql_agent.py     # LangChain agent with tools
-│   ├── tools.py         # Agent tools (SQL generation, execution)
-│   └── error_handler.py # SQL error repair loop
-├── ui/                  # Frontend layer
-│   ├── app.py           # Streamlit main application
-│   ├── components.py    # Reusable UI components
-│   └── visualizer.py    # Auto chart generation
-├── data/                # Data storage
-│   ├── sales_analytics.db  # SQLite database (generated)
-│   └── chroma_db/       # Vector DB persistence (generated)
-├── .env.example         # Environment variables template
-├── requirements.txt     # Python dependencies
-└── README.md           # This file
+├── 📁 agent/                # AI Agent & SQL Generation
+│   ├── sql_agent.py         # Main LangChain agent
+│   ├── error_handler.py     # SQL error repair (3 attempts)
+│   ├── sql_validator.py     # Query validation
+│   ├── sql_explainer.py     # Query explanation
+│   ├── query_optimizer.py   # Query optimization
+│   └── tools.py             # Agent tools
+├── 📁 config/               # Configuration
+│   └── settings.py          # Environment variables & settings
+├── 📁 database/             # Database Layer
+│   ├── connection_manager.py # Multi-database connections
+│   ├── schema_discoverer.py  # Auto schema discovery
+│   ├── db_manager.py        # Query execution
+│   └── db_setup.py          # Database initialization
+├── 📁 rag/                  # RAG System
+│   ├── dynamic_vector_store.py # Per-session vector stores
+│   ├── schema_loader.py     # Schema indexing
+│   └── query_expander.py    # Query expansion
+├── 📁 ui/                   # Frontend (Streamlit)
+│   ├── app.py               # Main application
+│   ├── components.py        # UI components
+│   └── visualizer.py        # Smart charts (auto-detect)
+├── 📁 utils/                # Utilities
+│   ├── pdf_generator.py     # PDF report generation
+│   └── performance_tracker.py # Performance monitoring
+├── 📁 docs/                 # 📚 Documentation
+│   ├── README.md            # Documentation index
+│   ├── ARCHITECTURE.md      # System architecture
+│   ├── QUICKSTART.md        # Quick start guide
+│   ├── GROQ_SETUP.md        # API setup
+│   └── ...                  # More guides
+├── 📁 data/                 # Data Storage (generated at runtime)
+│   ├── uploads/             # User uploaded files
+│   └── chroma_db/           # Vector DB persistence
+├── 📄 .env.example          # Environment template
+├── 📄 requirements.txt      # Python dependencies
+├── 📄 setup.py              # Database setup script
+└── 📄 README.md             # This file
 ```
+
+> **Note**: `data/`, `session_vector_stores/`, and `.env` are auto-generated at runtime and excluded from git.
 
 ## 🚀 Tech Stack
 
@@ -273,20 +322,69 @@ Contains the LangChain agent with tools for SQL generation, execution, and error
 ### UI Layer
 Streamlit-based frontend with components for query input, results display, visualization, and insights.
 
+## 📸 Screenshots
+
+### Query Interface
+Clean, intuitive interface with example questions based on your actual database schema.
+
+### Smart Visualizations
+Auto-generated charts that match your data patterns (bar, scatter, time series, pie charts).
+
+### AI Insights
+Get instant business insights and explanations for your query results.
+
+*See [VISUAL_GUIDE.md](./docs/VISUAL_GUIDE.md) for detailed screenshots*
+
 ## 🤝 Contributing
 
-This is a demonstration project built for the MYAIGURU AI Engineering assignment. For production use, consider:
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes:
 
-- Adding authentication and authorization
-- Implementing query result caching
-- Adding more visualization types
-- Supporting multiple databases simultaneously
-- Adding query history and bookmarking
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+### Production Enhancements
+For production deployment, consider:
+
+- ✅ Authentication and authorization (OAuth/SAML)
+- ✅ Query result caching (Redis)
+- ✅ Advanced visualization types (heatmaps, funnel charts)
+- ✅ Multi-database concurrent access
+- ✅ Query history and bookmarking
+- ✅ API endpoints (FastAPI integration)
+- ✅ Containerization (Docker/Kubernetes)
 
 ## 📄 License
 
 MIT License - Feel free to use this project as a template for your own applications.
 
+See [LICENSE](./LICENSE) file for details.
+
 ## 👨‍💻 Author
 
+**INCREDIBLE18**
+
 Built as part of the MYAIGURU AI Engineering Build Round (November 2025)
+
+## 🙏 Acknowledgments
+
+- **Groq**: For providing free, fast LLM inference
+- **LangChain**: For the agent framework
+- **Streamlit**: For the amazing UI framework
+- **Chroma**: For the vector database
+
+## 📞 Support
+
+For issues, questions, or suggestions:
+
+- 📧 Open an issue on [GitHub Issues](https://github.com/INCREDIBLE18/Data_analyst_agent/issues)
+- 📖 Check the [Documentation](./docs/ARCHITECTURE.md)
+- 🔧 See [Troubleshooting Guide](./docs/TROUBLESHOOTING.md)
+
+---
+
+⭐ **Star this repo** if you find it helpful!
+
+🔗 **Repository**: [https://github.com/INCREDIBLE18/Data_analyst_agent](https://github.com/INCREDIBLE18/Data_analyst_agent)
